@@ -1,18 +1,47 @@
+:root {
+  --geist-radius: 5px;
+  --geist-marketing-radius: 8px;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  --font-mono: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+  --header-height: 64px;
+  --geist-foreground: #fff;
+  --geist-background: #000;
+  --primary-color: #7928ca;
+  --secondary-color: #ff0080;
+  --accents-8: #fafafa;
+  --accents-7: #eaeaea;
+  --accents-6: #999;
+  --accents-5: #888;
+  --accents-4: #666;
+  --accents-3: #444;
+  --accents-2: #333;
+  --accents-1: #111;
+}
+
+*,
+:after,
+:before,
+html {
+  box-sizing: border-box;
+}
+
 html,
 body {
-  padding: 0;
-  margin: 0;
+  padding: 1rem;
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--geist-background);
+  color: var(--geist-foreground);
+  scroll-padding-top: var(--header-height);
 }
 
 @media (prefers-color-scheme: dark) {
