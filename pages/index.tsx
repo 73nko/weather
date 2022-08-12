@@ -3,11 +3,12 @@ import Head from 'next/head';
 import { Header } from '../components/Header';
 import { Typography } from 'antd';
 
-import { Button, DatePicker, Input, Space, version, Row } from 'antd';
-
-const { Search } = Input;
+import { Button, DatePicker, Form, Input, Space, version, Row } from 'antd';
 
 const { Title } = Typography;
+
+
+
 
 const Home: NextPage = () => {
   return (
@@ -18,7 +19,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header>{"What's the Weather"}</Header>
-      <Title className='title' level={2} style={{color: "white"}}>Select a date to see the weather</Title>
+      <Title level={2} style={{color: "white"}}>Select a date to see the weather</Title>
       <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
         <Space>
           <DatePicker />
@@ -26,9 +27,18 @@ const Home: NextPage = () => {
             Date
           </Button>
         </Space>
-        <Title className='title' level={2} style={{color: "white"}}>Select a City</Title>
         <Space>
-          <Input placeholder='Search a City' style={{ width: 300}}/>
+          <Form layout='horizontal'>
+            <Space>
+              <Space direction='vertical'>
+                <Title level={2} style={{color: "white"}}>Select a City</Title>
+                <Form.Item style={{color: 'white'}}>
+                  <Input placeholder='Search a City' style={{ width: 300}}/>
+                  <Button type='primary' style={{ marginLeft: 8 }}>Search</Button>
+                </Form.Item>
+              </Space>
+            </Space>
+          </Form>
         </Space>
       </Space>
     </div>
