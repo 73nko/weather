@@ -1,25 +1,42 @@
 import type {NextPage} from 'next';
-import {GetStaticProps} from 'next';
 import Head from 'next/head';
 import { Header } from '../components/Header';
 import { Typography } from 'antd';
 
 import { Button, DatePicker, Form, Input, Space, version, Row } from 'antd';
+import { mainModule } from 'process';
+import { useState } from 'react';
 
 const { Title } = Typography;
 
 
+const Home: NextPage = () =>{
+  const [city, setCity] = useState("")
+  const [temperature,setTemperature] = useState(0)
+  const [maxTemp,setMaxTemp] = useState(0)
+  const [minTemp,setMinTemp] = useState(0)
+
+  
+// let city: string = "murcia".toUpperCase()
+
+const callApi = () => {
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=7c6a959f5ad058e3e406fb96bc4acfdc`)
+    .then(res => res.json())
+    .then(data => { 
+      const temperature = data.main.temp
+      const maxTemp = data.main.temp_max
+      const minTemp = data.main.temp_min
+      setTemperature(temperature)
+      setMaxTemp(maxTemp)
+      setMinTemp(minTemp)
+    })
+}
+
+const handleCity = (event: any) => {
+  setCity(event.target.value)
+}
 
 
-// const Home: NextPage = (data) =>
-
-// Esta línea comentada, es la declaración del componente anterior, 
-
-// la he modificado para comprobar si así me funciona el fetching
-
-
-export default function Home({posts}) {
-    
   return (
     <>
       <Head>
@@ -42,34 +59,21 @@ export default function Home({posts}) {
               <Space direction='vertical'>
                 <Title level={2} style={{color: "white"}}>Select a City</Title>
                 <Form.Item style={{color: 'white'}}>
-                  <Input placeholder='Search a City' style={{ width: 300}}/>
-                  <Button type='primary' style={{ marginLeft: 8 }}>Search</Button>
+                  <Input placeholder='Search a City' style={{ width: 300}} onChange={handleCity}/>
+                  <Button type='primary' style={{ marginLeft: 8 }} onClick={callApi}>Search</Button>
                 </Form.Item>
               </Space>
             </Space>
           </Form>
         </Space>
       </Space>
-      <ul>
-        {posts.map((post: any) => (
-          <li key={post.id}>{post.title}</li>
-        ))}
-      </ul>
-        
+          <h2 style={{color: 'white'}}>{city.toUpperCase()}</h2>
+          <p>La temperatura actual en {city} es: {temperature}</p>
+          <p>La temperatura maxima actual en {city} es: {maxTemp}</p>
+          <p>La temperatura minima actual en {city} es: {minTemp}</p>
     </>
   );
 };
 
+export default Home;
 
-
-export async function getServerSideProps() {
-  
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const posts = await res.json();
-  return {
-    props: {
-      posts,
-    }
-    
-  };
-}
