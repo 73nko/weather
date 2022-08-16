@@ -13,27 +13,24 @@ const { Title } = Typography;
 const Home: NextPage = () =>{
   const [city, setCity] = useState("")
   const [temperature,setTemperature] = useState(0)
-  const [maxTemp,setMaxTemp] = useState(0)
-  const [minTemp,setMinTemp] = useState(0)
+  const [wind, setWind] = useState(0)
+  const [resume,setResume] = useState("")
+  const [description,setDescription] = useState("")
 
-  
-// let city: string = "murcia".toUpperCase()
 
 const callApi = () => {
   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=7c6a959f5ad058e3e406fb96bc4acfdc`)
     .then(res => res.json())
     .then(data => { 
       const temperature = data.main.temp
-      const maxTemp = data.main.temp_max
-      const minTemp = data.main.temp_min
+      const wind = (data.wind.speed * 3600) / 1000
+      const resume = (data.weather[0].main).toUpperCase()
+      const description = data.weather[0].description
       setTemperature(temperature)
-      setMaxTemp(maxTemp)
-      setMinTemp(minTemp)
+      setWind(wind)
+      setResume(resume)
+      setDescription(description)
     })
-}
-
-const handleCity = (event: any) => {
-  setCity(event.target.value)
 }
 
 
@@ -59,7 +56,7 @@ const handleCity = (event: any) => {
               <Space direction='vertical'>
                 <Title level={2} style={{color: "white"}}>Select a City</Title>
                 <Form.Item style={{color: 'white'}}>
-                  <Input placeholder='Search a City' style={{ width: 300}} onChange={handleCity}/>
+                  <Input placeholder='Search a City' style={{ width: 300}} onChange={(event) => setCity(event.target.value)}/>
                   <Button type='primary' style={{ marginLeft: 8 }} onClick={callApi}>Search</Button>
                 </Form.Item>
               </Space>
@@ -67,10 +64,15 @@ const handleCity = (event: any) => {
           </Form>
         </Space>
       </Space>
-          <h2 style={{color: 'white'}}>{city.toUpperCase()}</h2>
-          <p>La temperatura actual en {city} es: {temperature}</p>
-          <p>La temperatura maxima actual en {city} es: {maxTemp}</p>
-          <p>La temperatura minima actual en {city} es: {minTemp}</p>
+      {temperature ? (
+        <div>
+        <p className='city-title' style={{color: '#7928ca'}}>{city.toUpperCase()}</p>
+        <p className='temperature'>{temperature} °C</p>
+        <p className='wind'>Wind at this moment is {wind} km/h</p>
+        <p className='resume'>{resume}</p>
+        <p className='description'>{description}</p>
+        </div>
+      ) : ""}
     </>
   );
 };
