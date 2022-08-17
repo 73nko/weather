@@ -2,9 +2,7 @@ import type {NextPage} from 'next';
 import Head from 'next/head';
 import { Header } from '../components/Header';
 import { Typography } from 'antd';
-
-import { Button, DatePicker, Form, Input, Space, version, Row } from 'antd';
-import { mainModule } from 'process';
+import { Button, DatePicker, Form, Input, Space} from 'antd';
 import { useState } from 'react';
 
 const { Title } = Typography;
@@ -12,10 +10,10 @@ const { Title } = Typography;
 
 const Home: NextPage = () =>{
   const [city, setCity] = useState("")
-  const [temperature,setTemperature] = useState(0)
+  const [temperature, setTemperature] = useState(0)
   const [wind, setWind] = useState(0)
-  const [resume,setResume] = useState("")
-  const [description,setDescription] = useState("")
+  const [resume, setResume] = useState("")
+  const [description, setDescription] = useState("")
 
 
 const callApi = () => {
